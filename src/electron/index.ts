@@ -1,4 +1,4 @@
-import { BrowserWindow, app, globalShortcut, ipcMain, dialog } from "electron";
+import { BrowserWindow, app, globalShortcut, ipcMain, dialog, session } from "electron";
 import path from "path";
 
 import { accessSync, constants } from "fs";
@@ -45,13 +45,13 @@ app.on("ready", () => {
   window.setMenuBarVisibility(false);
 
 	globalShortcut.register('CommandOrControl+R', function() {
-		console.log('CommandOrControl+R is pressed')
-		window.reload()
-	})
+		console.log('CommandOrControl+R is pressed');
+		window.reload();
+	});
 
   ipcMain.on('close', (evt, arg) => {
-    app.quit()
-  })
+    app.quit();
+  });
 
   ipcMain.handle('showOpenDialog', async (event, options) => {
     return await dialog.showOpenDialog(<OpenDialogOptions> options);
